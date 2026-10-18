@@ -13,6 +13,8 @@ Ejecuta `principal.py`. En la consola, el sistema solicita los datos del cliente
 
 Para comprar, escribe el codigo del producto y la cantidad. Puedes ingresar varios productos; escribe `FIN` cuando termines. Despues selecciona `EFECTIVO` o `TARJETA`. Si eliges efectivo, ingresa el monto recibido.
 
+Al iniciar, elige `1` para una compra normal o `2` para la demostracion de error. En el modo demo, ingresa datos validos del cliente y luego un codigo de producto existente con stock disponible y una cantidad valida. El programa provocara y mostrara una excepcion de demostracion; esta opcion existe para el video y no afecta el modo normal.
+
 | Codigo | Producto | Precio | Existencias iniciales |
 |---|---|---:|---:|
 | A01 | Arroz 1kg | $4.800 | 25 |

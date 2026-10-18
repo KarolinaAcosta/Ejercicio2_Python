@@ -1,6 +1,6 @@
 from inventario import show_inventory
 
-def buy_products(inventario):
+def buy_products(inventario, demo_error=False):
     carrito = []
 
     while True:
@@ -48,6 +48,11 @@ def buy_products(inventario):
                     break
             except ValueError:
                 print("Error: ingresa un número entero.")
+
+        if demo_error:
+            raise RuntimeError(
+                "Fallo provocado a proposito despues de validar los datos del producto."
+            )
 
         if item_encontrado is not None:
             item_encontrado["cantidad"] += cantidad

@@ -9,11 +9,24 @@ def main():
     print("CAJA REGISTRADORA")
     print("==========================")
 
+    while True:
+        modo = input(
+            "Modo (1: compra normal, 2: demostracion de error): "
+        ).strip()
+        if modo in ("1", "2"):
+            break
+        print("Opcion no valida. Escribe 1 o 2.")
+
     # Registrar al cliente
     nombre, documento, afiliado = create_client()
 
-    # Construir el carrito
-    carrito = buy_products(inventario)
+    # Construir el carrito. En el modo demo, el error ocurre despues de
+    # ingresar correctamente un codigo de producto y una cantidad disponible.
+    try:
+        carrito = buy_products(inventario, demo_error=(modo == "2"))
+    except RuntimeError as error:
+        print(f"ERROR INTERNO DE DEMOSTRACION: {error}")
+        return
 
     if not carrito:
         print("El carrito esta vacio. No se generara factura al cliente")
