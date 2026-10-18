@@ -9,4 +9,15 @@ Contiene las siguientes funciones principales
 
 
 ¿COMO EJECUTARLO?
-Debemos ejecutar el archivo: principal.py Este mismo procesara, las funciones de cada archiivo y se ejecutara en consola inmediatamento, donde se requiere los datos de clientes y adicionalmente los productos que llevara este mismo.
+Ejecuta `principal.py`. En la consola, el sistema solicita los datos del cliente y luego muestra los productos disponibles para agregarlos al carrito.
+
+Para comprar, escribe el codigo del producto y la cantidad. Puedes ingresar varios productos; escribe `FIN` cuando termines. Despues selecciona `EFECTIVO` o `TARJETA`. Si eliges efectivo, ingresa el monto recibido.
+
+| Codigo | Producto | Precio | Existencias iniciales |
+|---|---|---:|---:|
+| A01 | Arroz 1kg | $4.800 | 25 |
+| A02 | Aceite 1L | $12.500 | 12 |
+| B01 | Gaseosa 2L | $7.200 | 8 |
+| B02 | Cerveza six pack | $18.900 | 4 |
+| C01 | Jabon en polvo | $15.400 | 0 (agotado) |
+| C02 | Papel higienico | $21.000 | 6 |

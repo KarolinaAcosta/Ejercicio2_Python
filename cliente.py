@@ -37,5 +37,3 @@ def create_client():
             print("Cliente no afiliado.")
 
     return nombre, documento, afiliado
-
-create_client()

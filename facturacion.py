@@ -5,52 +5,36 @@ def calculate_total (carrito, afiliado, medio_pago):
     iva = 0
 
     for item in carrito:
-        total_linea = item["precio"] + item["cantidad"]
+        total_linea = item["precio"] * item["cantidad"]
         subtotal += total_linea
 
         if item["grava_iva"]:
             iva += total_linea * 0.19
 
+    descuento = subtotal * 0.05 if afiliado else 0
+    total_base = subtotal + iva - descuento
+    recargo = total_base * 0.02 if medio_pago == "TARJETA" else 0
+    total = total_base + recargo
 
-            # Descuento del 5% para afiliados
-
-        descuento = 0
-
-        if afiliado:
-            descuento = subtotal * 0.05
-
-            # Total antes del recargo
-
-        total_base = subtotal + iva - descuento
-
-            # Sumarle el recargo del 2% si paga con tarjeta
-
-        recargo = 0
-
-        if medio_pago == "TARJETA":
-            recargo = total_base * 0.02
-
-        total = total_base + recargo
-
-        return subtotal, iva, descuento, recargo, total
+    return subtotal, iva, descuento, recargo, total
 
 def show_invoice (nombre, documento, afiliado, carrito, subtotal, iva, descuento, recargo, total, medio_pago, entregado, cambio):
 
-    fecha = datetime.now().strftime("%d%m%Y%H:%M")
+    fecha = datetime.now().strftime("%d/%m/%Y %H:%M")
 
-    print("/n========================")
+    print("\n========================")
     print("SUPERMERCADO - FACTURA")
-    print("/n========================")
+    print("========================")
 
-    print("Cliente",nombre)
-    print("Documento", documento)
+    print("Cliente:", nombre)
+    print("Documento:", documento)
 
     if afiliado:
         print("Cliente afiliado: Si")
     else:
         print("Cliente afiliado: No")
 
-    print("Fecha",fecha)
+    print("Fecha:", fecha)
     print("-------------------------")
     print("DETALLE DE PRODUCTOS")
 
@@ -60,22 +44,22 @@ def show_invoice (nombre, documento, afiliado, carrito, subtotal, iva, descuento
         print("Codigo:", item["codigo"])
         print("Producto:", item["producto"])
         print("Cantidad:",item["cantidad"])
-        print("Precio unitario $", round(item["precio"]))
+        print("Precio unitario: $", round(item["precio"]))
         print("Total de linea: $", round(total_linea))
         print("-------------------------")
 
-        print("Subtotal: $", round(subtotal))
-        print("IVA: $", round(iva))
-        print("Descuento: $", round(descuento))
-        print("Recargo: $", round(recargo))
-        print("TOTAL A PAGAR: $", round(total))
-        print("Medio de pago:", medio_pago)
+    print("Subtotal: $", round(subtotal))
+    print("IVA: $", round(iva))
+    print("Descuento: $", round(descuento))
+    print("Recargo: $", round(recargo))
+    print("TOTAL A PAGAR: $", round(total))
+    print("Medio de pago:", medio_pago)
 
     if medio_pago == "EFECTIVO":
         print("Monto entregado: $", entregado)
         print("Cambio: $", cambio)
 
-        print("/n========================")
+    print("========================")
 
 # FUNCION PARA ACTUALIZAR INVENTARIO
 
@@ -83,20 +67,19 @@ def update_inventory (inventario, carrito):
     for item in carrito:
         for producto in inventario:
             if producto["codigo"] == item["codigo"]:
-                producto["stock"] == item["cantidad"]
+                producto["stock"] -= item["cantidad"]
 
-        print("INVENTARIO FINAL")
+    print("INVENTARIO FINAL")
 
-        for producto in inventario:
-            if producto ["stock"] == 0:
-                estado = "AGOTADO"
-            else:
-                estado = str(producto["stock"]) + "unidades"
+    for producto in inventario:
+        if producto["stock"] == 0:
+            estado = "AGOTADO"
+        else:
+            estado = str(producto["stock"]) + " unidades"
 
-            print(
-                producto["codigo"], "|",
-                producto["producto"], "|","$",
-                producto["precio"], "|",
-                estado
-            )
-
+        print(
+            producto["codigo"], "|",
+            producto["producto"], "|", "$",
+            producto["precio"], "|",
+            estado
+        )
